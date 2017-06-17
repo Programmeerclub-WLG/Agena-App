@@ -6,6 +6,7 @@ topbar_create_appointment | Create Appointment
 topbar_trash | Recycle Bin
 topbar_close | Close Program
 credits_popup_title | Credits
+topbar_close_screen | Close Window
 
 # long text:
 credits_text | """

@@ -7,14 +7,18 @@ Het heeft een aantal functies en dezen staat beschreven in de drive.
 Animajosser <Animajosser@gmail.com>
 """
 __version__="0.1"
-__date__="08-06-2017"
+__date__="15-06-2017"
 __kivyversion__="1.10.0"
-__pythonversion__="3.5.2"
+__pythonversion__="3.6.1"
 ##############################################################################################
 
 # imports #
 
 # Most important
+print("Importing Kivy")
+import kivy
+print("Checking kivy-version")
+kivy.require('1.10.0')
 print("Importing App")
 from kivy.app import App
 print("Importing config and disabling multitouch")
@@ -30,6 +34,9 @@ print("Importing BoxLayout")
 from kivy.uix.boxlayout import BoxLayout
 #print("Importing StackLayout")
 #from kivy.uix.stacklayout import StackLayout
+print("Importing TabbedPanel")
+from kivy.uix.tabbedpanel import TabbedPanelItem, TabbedPanelHeader, TabbedPanel
+
 
 # Attributes
 #print("Importing Button")
@@ -53,8 +60,8 @@ Builder.load_file('main_screen.kv')
 
 print("Importing Time")
 import time
-print("Importing subprocess")
-import subprocess
+
+print("Start Program")
 
 # Classes #
 
@@ -63,8 +70,12 @@ import subprocess
 class CreditsPopup(Popup):
     pass
 
+class TabsScreens(TabbedPanel):
+    pass
+
 class BaseScreen(BoxLayout):
-    creditspopup=CreditsPopup()
+    creditspopup = CreditsPopup()
+    tabsscreens = TabsScreens()
 
 # Screens
 
@@ -78,14 +89,23 @@ class AgendaApp(App):
 
         return BaseScreen()
 
-    def open_app_crea_scr(self):
-        global AppointmentCreationScreen
-        # not tested yet
-        AppointmentCreationScreen = subprocess.Popen('python3 create_appointment.py', shell=True)
+    def open_new_tab(self, name):
+        """This opens a new tab in de tab side"""
 
-    def close_app_crea_scr(self):
-        global AppointmentCreationScreen
-        AppointmentCreationScreen.kill()
+        tabblads=TabsScreens()
+
+        if name=="create_appointment":
+            content=Label(text="Appointment Shit")
+            widget=TabbedPanelItem(text="<Create Appointment>", content=content)
+            widget.content = content
+            tabblads.add_widget(widget)
+            print("I don't do a fuck")
+
+        else:
+            print("Can't find tab: ", name)
+
+    def close_tab(self, name):
+        pass
 
     # Easter Egg
 

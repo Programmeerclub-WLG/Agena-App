@@ -6,7 +6,7 @@
 # Animajosser <Animajosser@gmail.com>
 
 # version: 0.1
-# date: 08-06-2017
+# date: 15-06-2017
 # kivyversion: 1.10.0
 
 ########################################################################################################################
@@ -29,12 +29,6 @@
 
 <BaseScreen>:
     # This is the main screen
-    canvas.before:
-        Color:
-            rgb: (1, 1, 1, 1)
-        Rectangle:
-            size: self.size
-            pos: self.pos
     orientation: "vertical"
 
     BoxLayout:
@@ -104,7 +98,7 @@
             background_color: bar_button_backcolor
             width: button_width_1
             size_hint: (None, 1)
-            on_release: app.open_app_crea_scr()
+            on_release: app.open_new_tab("create_appointment")
 
         Button:
             # Trash
@@ -128,47 +122,17 @@
 
     BoxLayout:
         # This is the horizontal working area
-        canvas.before:
-            Color:
-                rgb: (.75, .75, .75, 1)
-            Rectangle:
-                size: self.size
-                pos: self.pos
         orientation: "horizontal"
 
-
-        BoxLayout:
-            # This is the vertical working area horizontal-left
-            canvas.before:
-                Color:
-                    rgb: (1, 1, 0, 1)
-                Rectangle:
-                    size: self.size
-                    pos: self.pos
-            orientation: "vertical"
-
-
-            Widget:
-                # This is the working area right-upper
-                size_hint: 1,1
-                canvas.before:
-                    Color:
-                        rgb: (0, 0, 1, 1)
-                    Rectangle:
-                        size: self.size
-                        pos: self.pos
-
-
-            Widget:
-                # This is the working area right-lower
-                size_hint: 1,1
-                canvas.before:
-                    Color:
-                        rgb: (0, 1, 0, 1)
-                    Rectangle:
-                        size: self.size
-                        pos: self.pos
-
+        TabsScreens:
+            size: (1,1)
+            id: tabs_screens
+            do_default_tab: False
+            TabbedPanelItem:
+                id: default_tab_tabs_screens
+                text: "<Welcome>"
+                Label:
+                    text: "<Welcome>"
 
         Widget:
             # This is the working area horizontal-right

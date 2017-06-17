@@ -6,6 +6,7 @@ topbar_create_appointment | Maak Afspraak
 topbar_trash | Prullenbak
 topbar_close | Sluit Programma
 credits_popup_title | Juridische Informatie
+topbar_close_screen | Sluit Scherm
 
 # lange tekst
 credits_text | """

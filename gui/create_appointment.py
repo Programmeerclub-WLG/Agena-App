@@ -7,9 +7,9 @@ Het heeft een aantal functies en dezen staat beschreven in de drive.
 Animajosser <Animajosser@gmail.com>
 """
 __version__="0.1"
-__date__="08-06-2017"
+__date__="15-06-2017"
 __kivyversion__="1.10.0"
-__pythonversion__="3.5.2"
+__pythonversion__="3.6.1"
 ##############################################################################################
 
 # imports #
