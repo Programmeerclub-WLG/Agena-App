@@ -89,6 +89,7 @@ class AgendaApp(App):
 
         return BaseScreen()
 
+    # doesn't work
     def open_new_tab(self, name):
         """This opens a new tab in de tab side"""
 
