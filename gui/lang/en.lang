@@ -7,6 +7,12 @@ topbar_trash | Recycle Bin
 topbar_close | Close Program
 credits_popup_title | Credits
 topbar_close_screen | Close Window
+welcome_tab | Welcome
+welcome_text | Welcome in the Agenda App made by the WLG Club for Programming
+create_appointment_tab | Create Appointment
+recycle_bin_tab | Recycle Bin
+settings_tab | Settings
+close_tab | Close Tab
 
 # long text:
 credits_text | """

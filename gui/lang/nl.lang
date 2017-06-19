@@ -7,6 +7,12 @@ topbar_trash | Prullenbak
 topbar_close | Sluit Programma
 credits_popup_title | Juridische Informatie
 topbar_close_screen | Sluit Scherm
+welcome_tab | Welkom
+welcome_text | Welkom bij de Agenda App gemaakt door de WLG club voor programmeren
+create_appointment_tab | Maak Afspraak
+recycle_bin_tab | Prullenbak
+settings_tab | Instellingen
+close_tab | Sluit Tabblad
 
 # lange tekst
 credits_text | """

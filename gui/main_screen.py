@@ -6,8 +6,8 @@ Het heeft een aantal functies en dezen staat beschreven in de drive.
 <COPYRIGHT NOTICE>
 Animajosser <Animajosser@gmail.com>
 """
-__version__="0.1"
-__date__="15-06-2017"
+__version__="0.5"
+__date__="19-06-2017"
 __kivyversion__="1.10.0"
 __pythonversion__="3.6.1"
 ##############################################################################################
@@ -28,6 +28,8 @@ Config.set("input", "mouse", "mouse,disable_multitouch")
 #from kivy.core.window import Window
 print("Importing Builder")
 from kivy.lang.builder import Builder
+print("Importing Properties")
+from kivy.properties import ObjectProperty
 
 # Layouts
 print("Importing BoxLayout")
@@ -35,7 +37,7 @@ from kivy.uix.boxlayout import BoxLayout
 #print("Importing StackLayout")
 #from kivy.uix.stacklayout import StackLayout
 print("Importing TabbedPanel")
-from kivy.uix.tabbedpanel import TabbedPanelItem, TabbedPanelHeader, TabbedPanel
+from kivy.uix.tabbedpanel import TabbedPanelItem, TabbedPanel
 
 
 # Attributes
@@ -67,15 +69,67 @@ print("Start Program")
 
 # Main widgets
 
+"""TODO?:
+After deleting a tab the width isn't updated sometimes
+When there is no tab left, the last tab stays visible and 
+clickable, resulting in an AttributeError
+"""
+
 class CreditsPopup(Popup):
     pass
 
-class TabsScreens(TabbedPanel):
-    pass
+class CreateNewAppointment(TabbedPanelItem):
+    def close_tab(self):
+        # close procedure
+        self.parent.remove_widget(self.parent.parent.parent.parent.current_tab)
+
+class RecycleBin(TabbedPanelItem):
+    def close_tab(self):
+        # close procedure
+        self.parent.remove_widget(self.parent.parent.parent.parent.current_tab)
+
+class Appointment(TabbedPanelItem):
+    def close_tab(self):
+        # close procedure
+        self.parent.remove_widget(self.parent.parent.parent.parent.current_tab)
+
+class ProgramSettings(TabbedPanelItem):
+    def close_tab(self):
+        # close procedure
+        self.parent.remove_widget(self.parent.parent.parent.parent.current_tab)
 
 class BaseScreen(BoxLayout):
     creditspopup = CreditsPopup()
-    tabsscreens = TabsScreens()
+    tabsscreens_op = ObjectProperty(None)
+
+    def open_new_tab(self, name):
+        """This opens a new tab in de tab side"""
+
+        present = False
+
+        if name == "create_appointment":
+            self.tabsscreens_op.add_widget(CreateNewAppointment())
+        elif name=="trash":
+            for a in self.tabsscreens_op.tab_list:
+                if "RecycleBin" in str(a):
+                    self.tabsscreens_op.switch_to(RecycleBin())
+                    present=True
+                    break
+            if not present:
+                self.tabsscreens_op.add_widget(RecycleBin())
+        elif name=="settings":
+            for a in self.tabsscreens_op.tab_list:
+                if "ProgramSettings" in str(a):
+                    self.tabsscreens_op.switch_to(ProgramSettings())
+                    present=True
+                    break
+            if not present:
+                self.tabsscreens_op.add_widget(ProgramSettings())
+        else:
+            print("Can't find tab: ", name)
+
+    def close_tab(self):
+        self.tabsscreens_op.remove_widget(self.tabsscreens_op.current_tab)
 
 # Screens
 
@@ -89,33 +143,17 @@ class AgendaApp(App):
 
         return BaseScreen()
 
-    # doesn't work
-    def open_new_tab(self, name):
-        """This opens a new tab in de tab side"""
-
-        tabblads=TabsScreens()
-
-        if name=="create_appointment":
-            content=Label(text="Appointment Shit")
-            widget=TabbedPanelItem(text="<Create Appointment>", content=content)
-            widget.content = content
-            tabblads.add_widget(widget)
-            print("I don't do a fuck")
-
-        else:
-            print("Can't find tab: ", name)
-
-    def close_tab(self, name):
-        pass
-
     # Easter Egg
-
+    """TODO?:
+    This is quite buggy, but I just had to make an easter egg
+    Sometimes a click isn't forgotten or when you click a dropdown,
+    it stays clicked resulting in an easter egg, when released
+    """
     t0 = False
     easter_egg = Popup(
         size_hint=(.75, .75), auto_dismiss=True,
         title="Pieter rookt peukjes",
         content=Label(text="Roken is heel ongezond\n Doo Da Doo Da"))
-    # This is quite buggy, but I just had to make an easter egg
     def start_measure_time(self):
         self.t0 = time.time()
     def stop_measure_time(self):

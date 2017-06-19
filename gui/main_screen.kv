@@ -5,8 +5,8 @@
 # <COPYRIGHT NOTICE>
 # Animajosser <Animajosser@gmail.com>
 
-# version: 0.1
-# date: 15-06-2017
+# version: 0.5
+# date: 19-06-2017
 # kivyversion: 1.10.0
 
 ########################################################################################################################
@@ -24,6 +24,8 @@
 #:set bar_height 25
 #:set bar_button_color (1, 1, 1, 1)
 #:set bar_button_backcolor (.3, .3, .9, 1)
+#:set main_color (.25, .25, .5, 1)
+#:set standard_tab_width 150
 
 # screen
 
@@ -31,11 +33,13 @@
     # This is the main screen
     orientation: "vertical"
 
+    tabsscreens_op: tabs_screens
+
     BoxLayout:
     # This is the top bar
         canvas.before:
             Color:
-                rgb: (.25, .25, .5, 1)
+                rgb: main_color
             Rectangle:
                 size: self.size
                 pos: self.pos
@@ -61,16 +65,6 @@
             size: (0,0)
 
             Button:
-                # Something
-                id: topbar_something
-                text: "Something"
-                height: bar_height
-                color: bar_button_color
-                background_color: bar_button_backcolor
-                size_hint: (1, None)
-                on_release: print("This button will eventually do something")
-
-            Button:
                 # Settings
                 id: topbar_settings
                 text: lang["topbar_settings"]
@@ -78,7 +72,7 @@
                 height: bar_height
                 color: bar_button_color
                 size_hint: (1, None)
-                on_release: print("This button will eventually open the settings screen")
+                on_release: root.open_new_tab("settings")
 
             Button:
                 # Close
@@ -98,7 +92,7 @@
             background_color: bar_button_backcolor
             width: button_width_1
             size_hint: (None, 1)
-            on_release: app.open_new_tab("create_appointment")
+            on_release: root.open_new_tab("create_appointment")
 
         Button:
             # Trash
@@ -108,7 +102,7 @@
             background_color: bar_button_backcolor
             width: button_width_1
             size_hint: (None, 1)
-            on_release: print("This button will eventually open the trash screen")
+            on_release: root.open_new_tab("trash")
 
         Button:
             # Credits
@@ -124,22 +118,77 @@
         # This is the horizontal working area
         orientation: "horizontal"
 
-        TabsScreens:
-            size: (1,1)
+        TabbedPanel:
+            size: (1, 1)
             id: tabs_screens
             do_default_tab: False
+            background_color: main_color
+            tab_width: standard_tab_width
+            canvas:
+                Color:
+                    rgba: main_color
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
             TabbedPanelItem:
                 id: default_tab_tabs_screens
-                text: "<Welcome>"
-                Label:
-                    text: "<Welcome>"
+                text: lang["welcome_tab"]
+                BoxLayout:
+                    Label:
+                        text: lang["welcome_text"]
+                    Button:
+                        on_press: root.close_tab()
+                        size_hint: (.25, .125)
+                        text: lang["close_tab"]
 
         Widget:
             # This is the working area horizontal-right
-            size_hint: 1,1
+            size_hint: (1, 1)
             canvas.before:
                 Color:
                     rgb: (0, 1, 1, 1)
                 Rectangle:
                     size: self.size
                     pos: self.pos
+
+<CreateNewAppointment>:
+    text: lang["create_appointment_tab"]
+    BoxLayout:
+        Label: # dummy
+            text: "Create Appointment"
+        Button:
+            on_press: root.close_tab()
+            size_hint: (.25, .125)
+            text: lang["close_tab"]
+
+<RecycleBin>:
+    id: recycle_bin
+    text: lang["recycle_bin_tab"]
+    BoxLayout:
+        Label: # dummy
+            text: "Recycle Bin"
+        Button:
+            on_press: root.close_tab()
+            size_hint: (.25, .125)
+            text: lang["close_tab"]
+
+<ProgramSettings>:
+    id: settings
+    text: lang["settings_tab"]
+    BoxLayout:
+        Label: # dummy
+            text: "Settings"
+        Button:
+            on_press: root.close_tab()
+            size_hint: (.25, .125)
+            text: lang["close_tab"]
+
+<Appointment>:
+    text: "<appointment-name>"
+    BoxLayout:
+        Label: # dummy
+            text: "Appointment"
+        Button:
+            on_press: root.close_tab()
+            size_hint: (.25, .125)
+            text: lang["close_tab"]

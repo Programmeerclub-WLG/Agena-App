@@ -7,9 +7,9 @@ Het heeft een aantal functies en dezen staat beschreven in de drive.
 Animajosser <Animajosser@gmail.com>
 """
 
-__version__="0.1"
-__date__="08-06-2017"
-__pythonversion__="3.5.2"
+__version__="0.2"
+__date__="19-06-2017"
+__pythonversion__="3.6.1"
 
 ########################################################################################################################
 
@@ -31,6 +31,12 @@ needed_list=[
     "credits_text",
     "credits_popup_title",
     "topbar_close_screen",
+    "welcome_tab",
+    "welcome_text",
+    "create_appointment_tab",
+    "recycle_bin_tab",
+    "settings_tab",
+    "close_tab",
 ]
 
 # functions
@@ -90,3 +96,8 @@ for a in needed_list:
     if a not in languages:
         print(a, "was'nt found in the file:", language+".lang")
         languages[a]="N/A"
+
+"""TODO?:
+Maybe try to change the dictionary to a function,
+which checks if the key exists.
+"""
