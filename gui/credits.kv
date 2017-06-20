@@ -14,12 +14,10 @@
 <CreditsPopup>:
     size_hint: (.75, .75)
     auto_dismiss: True
-    title: lang["credits_popup_title"]
+    title: lang("credits_popup_title")
     ScrollView:
         Label:
             size_hint: (1, None)
             height: self.texture_size[1]
             text_size: self.width, None
-            text: lang["credits_text"]
-    #Label:
-    #    text: lang["credits_text"]
+            text: lang("credits_text")

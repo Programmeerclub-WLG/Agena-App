@@ -43,9 +43,11 @@ needed_list=[
 
 def get_lang_from_file():
     """ This returns the language, read from the settings file """
-    pass
+    return "en"
+
 
 def assign(line):
+    """ this interprets a line from the langauge-file """
     further = False
     first = False
     name = ""
@@ -65,39 +67,60 @@ def assign(line):
             key+=a
     return name, key
 
-# script
 
-language="en"
+def sort_out(line):
+    """
+    this pre-interprets lines the language file
+    it keeps track of multiline texts, too
+    """
+    global tussenquotes
+    global name
+    global key
 
-file=open(os.path.join("lang", language+".lang"), mode="r")
-
-for a in file:
-    if "#" not in a and a!="" and a!=" ":
-        if '"""' in a:
+    if "#" not in line and line!="" and line!=" ":
+        if '"""' in line:
             if not tussenquotes:
                 tussenquotes=True
             else:
                 tussenquotes=False
-        if not tussenquotes and not '"""' in a:
-            name, key=assign(a)
+        if not tussenquotes and not '"""' in line:
+            name, key=assign(line)
             languages[name]=key
+            key = ""
+            name = ""
         else:
-            if tussenquotes and '"""' in a:
-                name, key=assign(a.replace('"""', ""))
-                key+="\n"
-            elif tussenquotes:
-                key+=a
+            if tussenquotes:
+                if '"""' in line:
+                    name, key=assign(line.replace('"""', ""))
+                    key+="\n"
+                else:
+                    key+=line
             else:
-                key+=a.replace('"""', "")
+                key+=line.replace('"""', "")
                 languages[name]=key
+                key=""
+                name=""
 
+
+def language_request(text):
+    """This function returns the requested text"""
+    if text in languages:
+        return languages[text]
+    else:
+        print("Illegal request:", text)
+        return "N/A"
+
+
+# script
+
+language=get_lang_from_file()
+
+file=open(os.path.join("lang", language+".lang"), mode="r")
+
+for line in file:
+    sort_out(line)
 
 for a in needed_list:
     if a not in languages:
         print(a, "was'nt found in the file:", language+".lang")
         languages[a]="N/A"
-
-"""TODO?:
-Maybe try to change the dictionary to a function,
-which checks if the key exists.
-"""

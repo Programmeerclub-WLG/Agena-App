@@ -13,7 +13,7 @@
 
 # imports
 
-#:import lang get_lang.languages
+#:import lang get_lang.language_request
 #:import exit_program exit_script.exit_procedure
 
 #:include credits.kv
@@ -51,13 +51,11 @@
             # File
             id: topbar_file
             on_release: dropdown_file.open(self)
-            text: lang["topbar_file"]
+            text: lang("topbar_file")
             color: bar_button_color
             background_color: bar_button_backcolor
             width: button_width_1
             size_hint: (None, 1)
-            on_touch_down: app.start_measure_time()
-            on_touch_up: app.stop_measure_time()
 
         DropDown:
             # Dropdown for file
@@ -67,7 +65,7 @@
             Button:
                 # Settings
                 id: topbar_settings
-                text: lang["topbar_settings"]
+                text: lang("topbar_settings")
                 background_color: bar_button_backcolor
                 height: bar_height
                 color: bar_button_color
@@ -77,7 +75,7 @@
             Button:
                 # Close
                 id: topbar_exit
-                text: lang["topbar_close"]
+                text: lang("topbar_close")
                 background_color: bar_button_backcolor
                 height: bar_height
                 color: bar_button_color
@@ -87,7 +85,7 @@
         Button:
             # Create appointment
             id: topbar_create_appointment
-            text: lang["topbar_create_appointment"]
+            text: lang("topbar_create_appointment")
             color: bar_button_color
             background_color: bar_button_backcolor
             width: button_width_1
@@ -97,7 +95,7 @@
         Button:
             # Trash
             id: topbar_trash
-            text: lang["topbar_trash"]
+            text: lang("topbar_trash")
             color: bar_button_color
             background_color: bar_button_backcolor
             width: button_width_1
@@ -107,7 +105,7 @@
         Button:
             # Credits
             id: topbar_credits
-            text: lang["topbar_credits"]
+            text: lang("topbar_credits")
             color: bar_button_color
             background_color: bar_button_backcolor
             width: button_width_1
@@ -132,14 +130,14 @@
                     pos: self.pos
             TabbedPanelItem:
                 id: default_tab_tabs_screens
-                text: lang["welcome_tab"]
+                text: lang("welcome_tab")
                 BoxLayout:
                     Label:
-                        text: lang["welcome_text"]
+                        text: lang("welcome_text")
                     Button:
                         on_press: root.close_tab()
                         size_hint: (.25, .125)
-                        text: lang["close_tab"]
+                        text: lang("close_tab")
 
         Widget:
             # This is the working area horizontal-right
@@ -152,36 +150,36 @@
                     pos: self.pos
 
 <CreateNewAppointment>:
-    text: lang["create_appointment_tab"]
+    text: lang("create_appointment_tab")
     BoxLayout:
         Label: # dummy
             text: "Create Appointment"
         Button:
             on_press: root.close_tab()
             size_hint: (.25, .125)
-            text: lang["close_tab"]
+            text: lang("close_tab")
 
 <RecycleBin>:
     id: recycle_bin
-    text: lang["recycle_bin_tab"]
+    text: lang("recycle_bin_tab")
     BoxLayout:
         Label: # dummy
             text: "Recycle Bin"
         Button:
             on_press: root.close_tab()
             size_hint: (.25, .125)
-            text: lang["close_tab"]
+            text: lang("close_tab")
 
 <ProgramSettings>:
     id: settings
-    text: lang["settings_tab"]
+    text: lang("settings_tab")
     BoxLayout:
         Label: # dummy
             text: "Settings"
         Button:
             on_press: root.close_tab()
             size_hint: (.25, .125)
-            text: lang["close_tab"]
+            text: lang("close_tab")
 
 <Appointment>:
     text: "<appointment-name>"
@@ -191,4 +189,4 @@
         Button:
             on_press: root.close_tab()
             size_hint: (.25, .125)
-            text: lang["close_tab"]
+            text: lang("close_tab")
